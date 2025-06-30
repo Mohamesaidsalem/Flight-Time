@@ -28,8 +28,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
               <Plane className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold">Aviation Management System</h1>
-              <p className="text-blue-200 text-sm">Professional Flight Operations</p>
+              <h1 className="text-xl font-bold">Smart Aviation Management System</h1>
+              <p className="text-blue-200 text-sm">inspection and quality</p>
             </div>
           </div>
           
