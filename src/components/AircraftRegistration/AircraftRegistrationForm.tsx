@@ -72,12 +72,22 @@ export const AircraftRegistrationForm: React.FC<AircraftRegistrationFormProps> =
   };
 
   const handleAircraftChange = (field: string, value: any) => {
-    setAircraftData(prev => ({ ...prev, [field]: value }));
+    setAircraftData(prev => ({
+      ...prev,
+      [field]: typeof value === 'string' && (field === 'totalFlightHours' || field === 'totalCycles' || field === 'initialHours' || field === 'initialCycles' || field === 'maintenanceHours' || field === 'maintenanceCycles' || field === 'utilizationRate' || field === 'efficiency' || field === 'yearOfManufacture' || field === 'maxPassengers')
+        ? parseInt(value) || 0
+        : value
+    }));
   };
 
   const handleEngineChange = (index: number, field: string, value: any) => {
-    setEngines(prev => prev.map((engine, i) => 
-      i === index ? { ...engine, [field]: value } : engine
+    setEngines(prev => prev.map((engine, i) =>
+      i === index ? {
+        ...engine,
+        [field]: typeof value === 'string' && (field === 'totalHours' || field === 'totalCycles' || field === 'initialHours' || field === 'initialCycles' || field === 'thrustRating' || field === 'fuelConsumption')
+          ? parseInt(value) || 0
+          : value
+      } : engine
     ));
   };
 
@@ -356,9 +366,8 @@ export const AircraftRegistrationForm: React.FC<AircraftRegistrationFormProps> =
                       </label>
                       <input
                         type="number"
-                
                         value={engine.thrustRating}
-                        onChange={(e) => handleEngineChange(index, 'thrustRating', parseInt(e.target.value))}
+                        onChange={(e) => handleEngineChange(index, 'thrustRating', parseInt(e.target.value) || 0)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
@@ -408,7 +417,7 @@ export const AircraftRegistrationForm: React.FC<AircraftRegistrationFormProps> =
                       <input
                         type="number"
                         value={engine.fuelConsumption}
-                        onChange={(e) => handleEngineChange(index, 'fuelConsumption', parseInt(e.target.value))}
+                        onChange={(e) => handleEngineChange(index, 'fuelConsumption', parseInt(e.target.value) || 0)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>

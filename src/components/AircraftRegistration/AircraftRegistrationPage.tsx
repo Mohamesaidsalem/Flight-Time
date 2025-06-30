@@ -95,7 +95,7 @@ export const AircraftRegistrationPage: React.FC = () => {
             <div>
               <p className="text-sm font-medium text-gray-600">Fleet Hours</p>
               <p className="text-2xl font-bold text-orange-600">
-                {Math.round(aircraft.reduce((sum, ac) => sum + ac.totalFlightHours, 0) / 1000)}K
+                {Math.round(aircraft.reduce((sum, ac) => sum + (ac.totalFlightHours ?? 0), 0) / 1000)}K
               </p>
             </div>
           </div>
@@ -145,15 +145,15 @@ export const AircraftRegistrationPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">{ac.totalFlightHours.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-blue-600">{(ac.totalFlightHours ?? 0).toLocaleString()}</p>
                   <p className="text-sm text-blue-700">Total Hours</p>
-                  <p className="text-xs text-gray-500">Initial: {ac.initialHours.toLocaleString()}</p>
+                  <p className="text-xs text-gray-500">Initial: {(ac.initialHours ?? 0).toLocaleString()}</p>
                 </div>
 
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">{ac.totalCycles.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-green-600">{(ac.totalCycles ?? 0).toLocaleString()}</p>
                   <p className="text-sm text-green-700">Total Cycles</p>
-                  <p className="text-xs text-gray-500">Initial: {ac.initialCycles.toLocaleString()}</p>
+                  <p className="text-xs text-gray-500">Initial: {(ac.initialCycles ?? 0).toLocaleString()}</p>
                 </div>
 
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
@@ -190,15 +190,15 @@ export const AircraftRegistrationPage: React.FC = () => {
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <span className="text-gray-600">Hours:</span>
-                          <span className="ml-1 font-medium">{engine.totalHours.toLocaleString()}</span>
+                          <span className="ml-1 font-medium">{(engine.totalHours ?? 0).toLocaleString()}</span>
                         </div>
                         <div>
                           <span className="text-gray-600">Cycles:</span>
-                          <span className="ml-1 font-medium">{engine.totalCycles.toLocaleString()}</span>
+                          <span className="ml-1 font-medium">{(engine.totalCycles ?? 0).toLocaleString()}</span>
                         </div>
                         <div>
                           <span className="text-gray-600">Thrust:</span>
-                          <span className="ml-1 font-medium">{engine.thrustRating.toLocaleString()} lbs</span>
+                          <span className="ml-1 font-medium">{(engine.thrustRating ?? 0).toLocaleString()} lbs</span>
                         </div>
                         <div>
                           <span className="text-gray-600">Installed:</span>
@@ -226,6 +226,10 @@ export const AircraftRegistrationPage: React.FC = () => {
             ...aircraftData,
             id: newAircraftId,
             engineIds: newEngineIds,
+            totalFlightHours: aircraftData.totalFlightHours ?? 0,
+            totalCycles: aircraftData.totalCycles ?? 0,
+            initialHours: aircraftData.initialHours ?? 0,
+            initialCycles: aircraftData.initialCycles ?? 0,
           };
 
           const newEngines: Engine[] = engineData.map((engine, index) => ({
@@ -233,6 +237,12 @@ export const AircraftRegistrationPage: React.FC = () => {
             id: newEngineIds[index],
             aircraftId: newAircraftId,
             maintenanceHistory: [],
+            totalHours: engine.totalHours ?? 0,
+            totalCycles: engine.totalCycles ?? 0,
+            initialHours: engine.initialHours ?? 0,
+            initialCycles: engine.initialCycles ?? 0,
+            thrustRating: engine.thrustRating ?? 0,
+            fuelConsumption: engine.fuelConsumption ?? 0,
           }));
 
           setAircraft([...aircraft, newAircraft]);
