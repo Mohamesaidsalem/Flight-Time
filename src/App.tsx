@@ -6,7 +6,7 @@ import { FlightForm } from './components/FlightForm/FlightForm';
 import { ReportsPage } from './components/Reports/ReportsPage';
 import { MaintenancePage } from './components/Maintenance/MaintenancePage';
 import { OptimalAircraftPage } from './components/OptimalAircraft/OptimalAircraftPage';
-import { PilotsPage } from './components/Pilots/PilotsPage';
+// import { PilotsPage } from './components/Pilots/PilotsPage';
 import { EnginesPage } from './components/Engines/EnginesPage';
 import { AircraftRegistrationPage } from './components/AircraftRegistration/AircraftRegistrationPage';
 import { useFlights } from './hooks/useFlights';
@@ -82,7 +82,7 @@ function App() {
           />
         )}
 
-        {activeTab === 'pilots' && <PilotsPage />}
+        {/* {activeTab === 'pilots' && <PilotsPage />} */}
         
         {activeTab === 'engines' && <EnginesPage />}
         
@@ -128,7 +128,7 @@ function App() {
                   <div className="p-4 bg-blue-50 rounded-lg">
                     <h4 className="font-medium text-blue-900 mb-2">Advanced Features</h4>
                     <ul className="text-sm text-blue-800 space-y-1">
-                      <li>✓ Pilot management system</li>
+                      {/* <li>✓ Pilot management system</li> */}
                       <li>✓ Engine tracking & monitoring</li>
                       <li>✓ Aircraft registration system</li>
                       <li>✓ Maintenance scheduling</li>

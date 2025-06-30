@@ -10,7 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'flights', label: 'Flight Logs', icon: Plane },
-    { id: 'pilots', label: 'Pilots', icon: Users },
+    // { id: 'pilots', label: 'Pilots', icon: Users },
     { id: 'engines', label: 'Engines', icon: Settings },
     { id: 'registration', label: 'Aircraft Registration', icon: Plane },
     { id: 'reports', label: 'Reports', icon: FileText },
