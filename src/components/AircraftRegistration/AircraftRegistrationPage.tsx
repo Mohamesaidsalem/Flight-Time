@@ -6,20 +6,19 @@ import { AircraftRegistrationForm } from './AircraftRegistrationForm';
 import { Aircraft, Engine } from '../../types/flight';
 
 export const AircraftRegistrationPage: React.FC = () => {
-  const [aircraft, setAircraft] = useState(aircraftFleet);
-  const [engines, setEngines] = useState(enginesData);
+  const [aircraft, setAircraft] = useState<Aircraft[]>(aircraftFleet);
+  const [engines, setEngines] = useState<Engine[]>(enginesData);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredAircraft = aircraft.filter(ac => 
+  const filteredAircraft = aircraft.filter(ac =>
     ac.registration.toLowerCase().includes(searchTerm.toLowerCase()) ||
     ac.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
     ac.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getAircraftEngines = (aircraftId: string) => {
-    return engines.filter(engine => engine.aircraftId === aircraftId);
-  };
+  const getAircraftEngines = (aircraftId: string) =>
+    engines.filter(engine => engine.aircraftId === aircraftId);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -220,17 +219,20 @@ export const AircraftRegistrationPage: React.FC = () => {
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
         onSave={(aircraftData, engineData) => {
+          const newAircraftId = `aircraft-${Date.now()}`;
+          const newEngineIds = engineData.map(() => `eng-${Date.now()}-${Math.random()}`);
+
           const newAircraft: Aircraft = {
             ...aircraftData,
-            id: `aircraft-${Date.now()}`,
-            engineIds: engineData.map(e => `eng-${Date.now()}-${Math.random()}`)
+            id: newAircraftId,
+            engineIds: newEngineIds,
           };
-          
+
           const newEngines: Engine[] = engineData.map((engine, index) => ({
             ...engine,
-            id: newAircraft.engineIds[index],
-            aircraftId: newAircraft.id,
-            maintenanceHistory: []
+            id: newEngineIds[index],
+            aircraftId: newAircraftId,
+            maintenanceHistory: [],
           }));
 
           setAircraft([...aircraft, newAircraft]);
